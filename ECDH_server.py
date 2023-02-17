@@ -21,7 +21,7 @@ def main():
     # 產生私鑰
     private_key = ec.generate_private_key(curve, default_backend())
 
-    print(type(private_key))
+
     # 從私鑰計算出公鑰
     public_key = private_key.public_key()
 
