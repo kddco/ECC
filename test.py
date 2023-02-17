@@ -16,6 +16,7 @@ hashfunc = sha256
 
 # 簽名
 signature = private_key.sign(data, hashfunc=hashfunc)
+
 # 驗證簽名
 is_valid = public_key.verify(signature, data, hashfunc=hashfunc)
 print(is_valid)
