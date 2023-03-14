@@ -1,22 +1,15 @@
-from ecdsa import SigningKey, VerifyingKey, NIST256p
-from hashlib import sha256
+from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.backends import default_backend
+import socket
 
-# 初始化 curve 和私鑰
-curve = NIST256p
-private_key = SigningKey.generate(curve=curve)
+curve = ec.SECP256K1()
 
-# 從私鑰產生公鑰
-public_key = private_key.get_verifying_key()
+# 從私鑰計算出公鑰
+private_key = ec.generate_private_key(curve, default_backend())
+public_key = private_key.public_key()
 
-# 要簽名的訊息
-data = b"Hello, world!"
 
-# 設定 hashfunc 參數為 SHA256
-hashfunc = sha256
-
-# 簽名
-signature = private_key.sign(data, hashfunc=hashfunc)
-
-# 驗證簽名
-is_valid = public_key.verify(signature, data, hashfunc=hashfunc)
-print(is_valid)
+print(len("04e451d328600d64f04c98bb665ccca6fe94bdafd213c65aab1bceaed0baf13f071f90b44a885f9f0bb387bc0bc74b41f26d514a4d2c3fc2cb35a57d19966ac115"))
